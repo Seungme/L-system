@@ -5,11 +5,11 @@
 Rules::Rules(std::string axiom, const std::map<char, std::string>& productions):
 instructions_(axiom), productions_(productions) {}
 
-void Rules::iterate(const int& iter) {
+void Rules::iterate(const unsigned& iter) {
 
-  for (int i = 0; i < iter; i++) {
+  for (unsigned i = 0; i < iter; i++) {
     std::string finalInstruct = "";
-    for (int j = 0; j < instructions_.length(); j++) {
+    for (unsigned j = 0; j < instructions_.length(); j++) {
       char c = instructions_[j];
       if (productions_.find(c) != productions_.end())
         finalInstruct += productions_.find(c)->second;
@@ -22,7 +22,7 @@ void Rules::iterate(const int& iter) {
 }
 
 void Rules::interpret(const float& distance, const int& angle){
-  for (int i = 0; i < instructions_.length(); i++){
+  for (unsigned i = 0; i < instructions_.length(); i++){
     char c = instructions_[i];
     if (c == 'F') {
       setPen(true);

@@ -8,7 +8,7 @@
 class Rules : public Turtle {
   public:
     Rules(std::string axiom, const std::map<char, std::string>& productions);
-    void iterate(const int& iter);
+    void iterate(const unsigned& iter);
     void interpret(const float &distance, const int &angle);
 
   private:
