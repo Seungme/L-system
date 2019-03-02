@@ -1,10 +1,13 @@
 #include <cmath>
 #include "turtle.h"
+#include <SDL/SDL.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 Turtle::Turtle() {
-    state_.x = 0.0;
-    state_.y = 0.0;
-    state_.angle = 90;
+  state_.x = 0.0;
+  state_.y = 0.0;
+  state_.angle = 90;
 };
 
 state Turtle::getState() {
@@ -39,16 +42,24 @@ void Turtle::setPen(bool pen) {
 void Turtle::move(float distance) {
   float newX;
   float newY;
+
   if (state_.angle != 0) {
     newX = state_.x + distance * cos(state_.angle * M_PI / 180);
     newY = state_.y + distance * sin(state_.angle * M_PI / 180);
   }
-   else {
-     newX =  0;
-     newY = 1;
-   }
+  else {
+    newX =  0;
+    newY = 1;
+  }
 
-   setCoord(newX, newY);
+  if (pen_ == true) {
+    glBegin(GL_LINE);
+      glVertex2f(state_.x, state_.y);
+      glVertex2f(newX, newY);
+    glEnd();
+  }
+
+  setCoord(newX, newY);
 }
 
 void Turtle::turnRight(int angle) {

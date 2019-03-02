@@ -20,8 +20,14 @@ void Rules::iterate(const int& iter) {
 void Rules::interpret(const float &distance, const int& angle){
   for (int i = 0; i < instructions_.length(); i++){
     char c = instructions_[i];
-    if (c == 'F')
+    if (c == 'F') {
+      setPen(true);
       move(distance);
+    }
+    else if (c == 'f') {
+      setPen(false);
+      move(distance);
+    }
     else if (c == '-')
       turnLeft(angle);
     else if (c == '+')
