@@ -5,7 +5,8 @@
 struct state {
   float x;
   float y;
-  int angle;
+  float z;
+  float angle;
 };
 
 class Turtle
@@ -14,8 +15,8 @@ class Turtle
     Turtle();
   
     state getState();
-    void setCoord(float x, float y);
-    void setAngle(int angle);
+    void setCoord(float x, float y, float z);
+    void setAngle(float angle);
 
     int getWidth();
     void setWidth(int);
@@ -24,8 +25,8 @@ class Turtle
     void setPen(bool pen);
 
     void move(float distance);
-    void turnRight(int angle);
-    void turnLeft(int angle);
+    void turnRight(float angle);
+    void turnLeft(float angle);
     void save();
     void restore();
 

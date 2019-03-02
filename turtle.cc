@@ -8,6 +8,7 @@
 Turtle::Turtle() {
   state_.x = 0.0;
   state_.y = 0.0;
+  state_.z = 0.0;
   state_.angle = 90;
 };
 
@@ -15,12 +16,13 @@ state Turtle::getState() {
   return state_;
 }
 
-void Turtle::setCoord(float x, float y) {
+void Turtle::setCoord(float x, float y, float z) {
   state_.x = x;
   state_.y = y;
+  state_.z = z;
 }
 
-void Turtle::setAngle(int angle) {
+void Turtle::setAngle(float angle) {
   state_.angle = angle;
 }
 
@@ -41,28 +43,27 @@ void Turtle::setPen(bool pen) {
 }
 
 void Turtle::move(float distance) {
-  float newX;
-  float newY;
+  float radian = state_.angle * M_PI / 180;
 
-
-  newX = state_.x + distance * cos(state_.angle * M_PI / 180);
-  newY = state_.y + distance * sin(state_.angle * M_PI / 180);
+  float newX = state_.x + distance * (cos(radian));
+  float newY = state_.y + distance * (sin(radian));
+  float newZ = 0;
 
   if (pen_ == true) {
     glBegin(GL_LINES);
-      glVertex2f(state_.x, state_.y);
-      glVertex2f(newX, newY);
+      glVertex3f(state_.x, state_.y, state_.z);
+      glVertex3f(newX, newY, newZ);
     glEnd();
   }
 
-  setCoord(newX, newY);
+  setCoord(newX, newY, newZ);
 }
 
-void Turtle::turnRight(int angle) {
+void Turtle::turnRight(float angle) {
   setAngle(state_.angle - angle);
 }
 
-void Turtle::turnLeft(int angle) {
+void Turtle::turnLeft(float angle) {
   setAngle(state_.angle + angle);
 }
 

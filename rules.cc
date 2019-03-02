@@ -21,7 +21,7 @@ void Rules::iterate(const unsigned& iter) {
   }
 }
 
-void Rules::interpret(const float& distance, const int& angle){
+void Rules::interpret(const float& distance, const float& angle){
   for (unsigned i = 0; i < instructions_.length(); i++){
     char c = instructions_[i];
     if (c == 'F') {
