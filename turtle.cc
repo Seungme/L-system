@@ -3,6 +3,7 @@
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <iostream>
 
 Turtle::Turtle() {
   state_.x = 0.0;
@@ -43,17 +44,12 @@ void Turtle::move(float distance) {
   float newX;
   float newY;
 
-  if (state_.angle != 0) {
-    newX = state_.x + distance * cos(state_.angle * M_PI / 180);
-    newY = state_.y + distance * sin(state_.angle * M_PI / 180);
-  }
-  else {
-    newX =  0;
-    newY = 1;
-  }
+
+  newX = state_.x + distance * cos(state_.angle * M_PI / 180);
+  newY = state_.y + distance * sin(state_.angle * M_PI / 180);
 
   if (pen_ == true) {
-    glBegin(GL_LINE);
+    glBegin(GL_LINES);
       glVertex2f(state_.x, state_.y);
       glVertex2f(newX, newY);
     glEnd();

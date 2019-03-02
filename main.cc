@@ -1,12 +1,16 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL/SDL.h>
+#include <map>
 
-#include "canvas.h"
+#include "rules.h"
+#include "turtle.h"
 
-int main(int argc, char *argv[]) 
-{ 
-  Canvas canvas(640, 480);
+int main(int argc, char *argv[])
+{
+  SDL_Init(SDL_INIT_VIDEO);
+  SDL_WM_SetCaption("Mon premier programme OpenGL !",NULL);
+  SDL_SetVideoMode(600, 600, 32, SDL_OPENGL);
 
   bool continuer = true;
   SDL_Event event;
@@ -17,21 +21,21 @@ int main(int argc, char *argv[])
     switch(event.type)
     {
       case SDL_QUIT:
-      continuer = false;
+        continuer = false;
     }
 
     glClear(GL_COLOR_BUFFER_BIT);
+    const std::map<char, std::string>& prod = {{'F', "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF"}, {'f', "ffffff"}};
 
-    
-    const std::map<char, std::string>& prod = {{'F', "F-F+F+FF-F-F+F"}};
-
-    Rules r("F-F-F-F", prod);
-    r.iterate(3);
-    r.interpret(2, 90);
+    Rules r("F+F+F+F", prod);
+    r.iterate(2);
+    r.interpret(0.01, 90);
 
     glFlush();
     SDL_GL_SwapBuffers();
   }
+
+  SDL_Quit();
 
   return 0;
 }

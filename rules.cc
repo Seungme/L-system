@@ -1,9 +1,12 @@
+
+#include <iostream>
 #include "rules.h"
 
 Rules::Rules(std::string axiom, const std::map<char, std::string>& productions):
 instructions_(axiom), productions_(productions) {}
 
 void Rules::iterate(const int& iter) {
+
   for (int i = 0; i < iter; i++) {
     std::string finalInstruct = "";
     for (int j = 0; j < instructions_.length(); j++) {
@@ -14,6 +17,7 @@ void Rules::iterate(const int& iter) {
         finalInstruct += c;
     }
     instructions_ = finalInstruct;
+
   }
 }
 
@@ -38,5 +42,3 @@ void Rules::interpret(const float& distance, const int& angle){
       restore();
   }
 }
-
-
