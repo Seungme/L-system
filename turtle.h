@@ -2,12 +2,15 @@
 
 #include <stack>
 
-struct state {
+struct point {
   float x;
   float y;
   float z;
-  float angle;
-  float vector[3];
+};
+
+struct state {
+  point p;
+  point vector[3];
 };
 
 class Turtle
@@ -17,7 +20,6 @@ class Turtle
 
     state getState();
     void setCoord(float x, float y, float z);
-    void setAngle(float angle);
 
     int getWidth();
     void setWidth(int);

@@ -4,15 +4,13 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <iostream>
+#include <stdlib.h>
 
 Turtle::Turtle() {
-  state_.x = 0;
-  state_.y = 0;
-  state_.z = 0;
-  state_.angle = 0;
-  state_.vector[0] = 0;
-  state_.vector[1] = 1;
-  state_.vector[2] = 0;
+  state_.p = {0, 0, 0};
+  state_.vector[0] = {1, 0, 0};
+  state_.vector[1] = {0, 1, 0};
+  state_.vector[2] = {0, 0, 1};
 };
 
 state Turtle::getState() {
@@ -20,13 +18,7 @@ state Turtle::getState() {
 }
 
 void Turtle::setCoord(float x, float y, float z) {
-  state_.x = x;
-  state_.y = y;
-  state_.z = z;
-}
-
-void Turtle::setAngle(float angle) {
-  state_.angle = angle;
+  state_.p = {x, y, z};
 }
 
 int Turtle::getWidth() {
@@ -45,31 +37,63 @@ void Turtle::setPen(bool pen) {
   pen_ = pen;
 }
 
+float absolute(point p)
+{
+  return sqrt(pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2));
+}
+
+point multiply(float n, point p) {
+   return {p.x * n, p.y * n, p.z * n};
+}
+
+point plus(point p1, point p2) {
+ return { p1.x + p2.x, p1.y + p2.y, p1.z + p2.z };
+}
+
 void Turtle::move(float distance) {
-  float radian = state_.angle * M_PI / 180;
 
-  float vx =  cos(radian) * state_.vector[0] - sin(radian) * state_.vector[1];
-  float vy =  sin(radian) * state_.vector[0] + cos(radian) * state_.vector[1];
-
-  float length = sqrt(pow(vx, 2) + pow(vy, 2));
-
-  state_.vector[0] = vx/length;
-  state_.vector[1] = vy/length;
-  float newX = state_.x + distance * state_.vector[0];
-  float newY = state_.y + distance * state_.vector[1];
+  point p = plus(state_.p, multiply(distance, state_.vector[0]));
 
   if (pen_ == true) {
     glBegin(GL_LINES);
-    glVertex2f(state_.x, state_.y);
-    glVertex2f(newX, newY);
+    glColor3ub(rand() % 256, rand() % 256, rand() % 256);
+    glVertex3f(state_.p.x, state_.p.y, state_.p.z);
+    glVertex3f(p.x, p.y, p.z);
     glEnd();
   }
-
-  setCoord(newX, newY, 0);
+  state_.p = p;
 }
 
+
+
 void Turtle::turn(float angle) {
-  setAngle(angle);
+  float radian = angle * M_PI / 180;
+
+  point vx = plus(multiply(cos(radian), state_.vector[0]),  multiply(sin(radian), state_.vector[1]));
+  point vy = plus(multiply(-sin(radian), state_.vector[0]), multiply(cos(radian), state_.vector[1]));
+
+  state_.vector[0] = vx;
+  state_.vector[1] = vy;
+}
+
+void Turtle::pitch(float angle) {
+  float radian = angle * M_PI / 180;
+  
+  point vx =  plus(multiply(cos(radian), state_.vector[0]), multiply(-sin(radian), state_.vector[2]));
+  point vz =  plus(multiply(sin(radian), state_.vector[0]), multiply(cos(radian), state_.vector[2]));
+
+  state_.vector[0] = vx;
+  state_.vector[2] = vz;
+}
+
+void Turtle::roll(float angle) {
+  float radian = angle * M_PI / 180;
+
+  point vy =  plus(multiply(cos(radian), state_.vector[1]), multiply(sin(radian), state_.vector[2]));
+  point vz =  plus(multiply(-sin(radian), state_.vector[1]), multiply(cos(radian), state_.vector[2]));
+
+  state_.vector[1] = vy;
+  state_.vector[2] = vz;
 }
 
 void Turtle::save() {
@@ -81,4 +105,3 @@ void Turtle::restore() {
   state_ = s;
   s_.pop();
 }
-

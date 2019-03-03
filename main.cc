@@ -7,6 +7,18 @@
 #include "turtle.h"
 #include <iostream>
 
+void load() {
+    const std::map<char, std::string>& prod = {{'X', "^ < X F ^ < X F X - F ^ > > X F X & F + > > X F X - F > X - >"}};
+    Rules r ("X", prod);
+    r.iterate(3);
+    r.interpret(0.2, 90);
+   /* const std::map<char, std::string>& prod = {{'A', "[&FFFA] //// [&FFFA] //// [&FFFA]"}};
+    Rules r ("FFFA", prod);
+    r.iterate(3);
+    r.interpret(0.2, 30);
+*/
+}
+
 int main(int argc, char *argv[])
 {
   SDL_Init(SDL_INIT_VIDEO);
@@ -15,6 +27,10 @@ int main(int argc, char *argv[])
 
   bool continuer = true;
   SDL_Event event;
+  glMatrixMode( GL_PROJECTION );
+  glLoadIdentity();
+  gluPerspective(70,1,1,1000);
+  glEnable(GL_DEPTH_TEST);
 
   while (continuer)
   {
@@ -24,15 +40,14 @@ int main(int argc, char *argv[])
       case SDL_QUIT:
         continuer = false;
     }
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glClear(GL_COLOR_BUFFER_BIT);
-    const std::map<char, std::string>& prod = {};
-    //const std::map<char, std::string>& prod = {{'F', "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF"}, {'f', "ffffff"}};
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(3,4,2,0,0,0,0,0,1);
 
-    Rules r("F+F-F+F-F", prod);
-    r.iterate(1);
-    r.interpret(0.1, 90);
-    std::cout << "wow" << std::endl;
+    load();
+
     glFlush();
     SDL_GL_SwapBuffers();
   }
