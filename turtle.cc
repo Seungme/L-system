@@ -13,6 +13,7 @@ Turtle::Turtle() {
   state_.vector[0] = 0;
   state_.vector[1] = 1;
   state_.vector[2] = 0;
+  state_.axis = 'z';
 };
 
 state Turtle::getState() {
@@ -45,30 +46,61 @@ void Turtle::setPen(bool pen) {
   pen_ = pen;
 }
 
+float absolute(float x, float y, float z)
+{
+  return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+}
+
 void Turtle::move(float distance) {
   float radian = state_.angle * M_PI / 180;
-
-  float vx =  cos(radian) * state_.vector[0] - sin(radian) * state_.vector[1];
-  float vy =  sin(radian) * state_.vector[0] + cos(radian) * state_.vector[1];
-
-  float length = sqrt(pow(vx, 2) + pow(vy, 2));
+  float vx, vy, vz;
+  if (state_.axis == 'z') {
+    vx = cos(radian) * state_.vector[0] - sin(radian) * state_.vector[1];
+    vy = sin(radian) * state_.vector[0] + cos(radian) * state_.vector[1];
+    vz = state_.vector[2];
+  }
+  else if (state_.axis == 'y')
+  {
+    vx = cos(radian) * state_.vector[0] + sin(radian) * state_.vector[2];
+    vz = -sin(radian) * state_.vector[0] + cos(radian) * state_.vector[2];
+    vy = state_.vector[1];
+  }
+  else
+  {
+    vy = cos(radian) * state_.vector[1] - sin(radian) * state_.vector[2];
+    vz = sin(radian) * state_.vector[1] + cos(radian) * state_.vector[2];
+    vx = state_.vector[0];
+  }
+  float length = absolute(vx, vy, vz);
 
   state_.vector[0] = vx/length;
   state_.vector[1] = vy/length;
+  state_.vector[2] = vz/length;
   float newX = state_.x + distance * state_.vector[0];
   float newY = state_.y + distance * state_.vector[1];
+  float newZ = state_.z + distance * state_.vector[2];
 
   if (pen_ == true) {
     glBegin(GL_LINES);
-    glVertex2f(state_.x, state_.y);
-    glVertex2f(newX, newY);
+    glVertex3f(state_.x, state_.y, state_.z);
+    glVertex3f(newX, newY, newZ);
     glEnd();
   }
-
-  setCoord(newX, newY, 0);
+  setCoord(newX, newY, newZ);
 }
 
 void Turtle::turn(float angle) {
+  state_.axis = 'z';
+  setAngle(angle);
+}
+
+void Turtle::pitch(float angle) {
+  state_.axis = 'y';
+  setAngle(angle);
+}
+
+void Turtle::roll(float angle) {
+  state_.axis = 'x';
   setAngle(angle);
 }
 

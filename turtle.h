@@ -8,6 +8,7 @@ struct state {
   float z;
   float angle;
   float vector[3];
+  char axis;
 };
 
 class Turtle

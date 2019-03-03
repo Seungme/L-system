@@ -27,11 +27,10 @@ int main(int argc, char *argv[])
 
     glClear(GL_COLOR_BUFFER_BIT);
     const std::map<char, std::string>& prod = {};
-    //const std::map<char, std::string>& prod = {{'F', "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF"}, {'f', "ffffff"}};
 
-    Rules r("F+F-F+F-F", prod);
+    Rules r("F+FF-FF+FF-FF", prod);
     r.iterate(1);
-    r.interpret(0.1, 90);
+    r.interpret(0.05, 90);
     std::cout << "wow" << std::endl;
     glFlush();
     SDL_GL_SwapBuffers();

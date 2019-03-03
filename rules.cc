@@ -33,12 +33,23 @@ void Rules::interpret(const float& distance, const float& angle){
       move(distance);
     }
     else if (c == '-')
-      turn(angle);
-    else if (c == '+')
       turn(-angle);
+    else if (c == '+')
+      turn(angle);
     else if (c == '[')
       save();
     else if (c == ']')
       restore();
+    else if (c == '&')
+      pitch(angle);
+    else if (c == '^')
+      pitch(-angle);
+    else if (c == '|')
+      turn(180);
+    else if (c == '<')
+      roll(-angle);
+    else if (c == '>')
+      roll(angle);
+
   }
 }
