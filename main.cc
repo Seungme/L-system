@@ -5,6 +5,7 @@
 
 #include "rules.h"
 #include "turtle.h"
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -25,13 +26,13 @@ int main(int argc, char *argv[])
     }
 
     glClear(GL_COLOR_BUFFER_BIT);
-    const std::map<char, std::string>& prod = {{'F', "FF"}, {'X', "F[+X][-X]FX"}};
+    const std::map<char, std::string>& prod = {};
     //const std::map<char, std::string>& prod = {{'F', "F+f-FF+F+FF+Ff+FF-f+FF-F-FF-Ff-FFF"}, {'f', "ffffff"}};
 
-    Rules r("X", prod);
-    r.iterate(7);
-    r.interpret(0.003, 25.7);
-
+    Rules r("F+F-F+F-F", prod);
+    r.iterate(1);
+    r.interpret(0.1, 90);
+    std::cout << "wow" << std::endl;
     glFlush();
     SDL_GL_SwapBuffers();
   }

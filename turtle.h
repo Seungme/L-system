@@ -7,13 +7,14 @@ struct state {
   float y;
   float z;
   float angle;
+  float vector[3];
 };
 
 class Turtle
 {
   public:
     Turtle();
-  
+
     state getState();
     void setCoord(float x, float y, float z);
     void setAngle(float angle);
@@ -25,8 +26,9 @@ class Turtle
     void setPen(bool pen);
 
     void move(float distance);
-    void turnRight(float angle);
-    void turnLeft(float angle);
+    void turn(float angle);
+    void pitch(float angle);
+    void roll(float angle);
     void save();
     void restore();
 

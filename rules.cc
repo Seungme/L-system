@@ -33,9 +33,9 @@ void Rules::interpret(const float& distance, const float& angle){
       move(distance);
     }
     else if (c == '-')
-      turnLeft(angle);
+      turn(angle);
     else if (c == '+')
-      turnRight(angle);
+      turn(-angle);
     else if (c == '[')
       save();
     else if (c == ']')
