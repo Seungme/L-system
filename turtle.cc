@@ -64,8 +64,6 @@ void Turtle::move(float distance) {
   state_.p = p;
 }
 
-
-
 void Turtle::turn(float angle) {
   float radian = angle * M_PI / 180;
 
@@ -78,7 +76,7 @@ void Turtle::turn(float angle) {
 
 void Turtle::pitch(float angle) {
   float radian = angle * M_PI / 180;
-  
+
   point vx =  plus(multiply(cos(radian), state_.vector[0]), multiply(-sin(radian), state_.vector[2]));
   point vz =  plus(multiply(sin(radian), state_.vector[0]), multiply(cos(radian), state_.vector[2]));
 
