@@ -40,11 +40,6 @@ void Turtle::setPen(bool pen) {
   pen_ = pen;
 }
 
-float absolute(point p)
-{
-  return sqrt(pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2));
-}
-
 //multiply a vector by a scalar
 point multiply(float n, point p) {
    return {p.x * n, p.y * n, p.z * n};
@@ -70,6 +65,7 @@ void Turtle::move(float distance) {
 }
 me/parallels/Documents/L-system/turtle.obj' 
 
+//rotate around the z axis
 void Turtle::turn(float angle) {
   float radian = angle * M_PI / 180;
 
@@ -82,6 +78,7 @@ void Turtle::turn(float angle) {
   state_.vector[1] = vy;
 }
 
+//rotate around the y axis
 void Turtle::pitch(float angle) {
   float radian = angle * M_PI / 180;
 
@@ -94,6 +91,7 @@ void Turtle::pitch(float angle) {
   state_.vector[2] = vz;
 }
 
+//rotate around the z axis
 void Turtle::roll(float angle) {
   float radian = angle * M_PI / 180;
 
