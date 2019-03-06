@@ -6,6 +6,7 @@
 #include <iostream>
 #include <stdlib.h>
 
+//initialize the turtle with basis for vector space
 Turtle::Turtle() {
   state_.p = {0, 0, 0};
   state_.vector[0] = {1, 0, 0};
@@ -42,16 +43,17 @@ float absolute(point p)
   return sqrt(pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2));
 }
 
+//multiply a vector by a scalar
 point multiply(float n, point p) {
    return {p.x * n, p.y * n, p.z * n};
 }
 
+//add two vectors
 point plus(point p1, point p2) {
  return { p1.x + p2.x, p1.y + p2.y, p1.z + p2.z };
 }
 
 void Turtle::move(float distance) {
-
   point p = plus(state_.p, multiply(distance, state_.vector[0]));
 
   if (pen_ == true) {
@@ -67,8 +69,10 @@ void Turtle::move(float distance) {
 void Turtle::turn(float angle) {
   float radian = angle * M_PI / 180;
 
-  point vx = plus(multiply(cos(radian), state_.vector[0]),  multiply(sin(radian), state_.vector[1]));
-  point vy = plus(multiply(-sin(radian), state_.vector[0]), multiply(cos(radian), state_.vector[1]));
+  point vx = plus(multiply(cos(radian), state_.vector[0]),
+                  multiply(sin(radian), state_.vector[1]));
+  point vy = plus(multiply(-sin(radian), state_.vector[0]),
+                  multiply(cos(radian), state_.vector[1]));
 
   state_.vector[0] = vx;
   state_.vector[1] = vy;
@@ -77,8 +81,10 @@ void Turtle::turn(float angle) {
 void Turtle::pitch(float angle) {
   float radian = angle * M_PI / 180;
 
-  point vx =  plus(multiply(cos(radian), state_.vector[0]), multiply(-sin(radian), state_.vector[2]));
-  point vz =  plus(multiply(sin(radian), state_.vector[0]), multiply(cos(radian), state_.vector[2]));
+  point vx =  plus(multiply(cos(radian), state_.vector[0]),
+                   multiply(-sin(radian), state_.vector[2]));
+  point vz =  plus(multiply(sin(radian), state_.vector[0]),
+                   multiply(cos(radian), state_.vector[2]));
 
   state_.vector[0] = vx;
   state_.vector[2] = vz;
@@ -87,17 +93,21 @@ void Turtle::pitch(float angle) {
 void Turtle::roll(float angle) {
   float radian = angle * M_PI / 180;
 
-  point vy =  plus(multiply(cos(radian), state_.vector[1]), multiply(sin(radian), state_.vector[2]));
-  point vz =  plus(multiply(-sin(radian), state_.vector[1]), multiply(cos(radian), state_.vector[2]));
+  point vy =  plus(multiply(cos(radian), state_.vector[1]),
+                   multiply(sin(radian), state_.vector[2]));
+  point vz =  plus(multiply(-sin(radian), state_.vector[1]),
+                   multiply(cos(radian), state_.vector[2]));
 
   state_.vector[1] = vy;
   state_.vector[2] = vz;
 }
 
+//use stack to save the current state
 void Turtle::save() {
   s_.push(state_);
 }
 
+//get the last added element
 void Turtle::restore() {
   state s = s_.top();
   state_ = s;

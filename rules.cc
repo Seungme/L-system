@@ -6,11 +6,13 @@
 
 Rules::Rules(std::string file): file_(file) {}
 
+//parse the input file
 void Rules::generate() {
 	std::ifstream in(file_);
 	std::string line;
 	std::string key, name;
 
+	//get the basic configuration
 	for (int i = 0; i < 4; i++)
 	{
 		std::getline(in, line);
@@ -26,6 +28,7 @@ void Rules::generate() {
 			instructions_ = key;
 	}
 
+	//get the productions
 	while (std::getline(in, line)) {
 		std::string delimiter = "->";
 		auto index = line.find(delimiter);
@@ -38,6 +41,7 @@ void Rules::generate() {
 	iterate();
 }
 
+//iterate the axiom and create the final instruction
 void Rules::iterate() {
 	for (unsigned i = 0; i < iter_; i++) {
 		std::string finalInstruct = "";
@@ -59,6 +63,7 @@ void Rules::iterate() {
 	interpret();
 }
 
+//interpret the final instruction
 void Rules::interpret(){
 	for (unsigned i = 0; i < instructions_.length(); i++){
 		char c = instructions_[i];
