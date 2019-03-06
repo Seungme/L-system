@@ -1,17 +1,27 @@
 #pragma once
 
 #include <string>
-#include <map>
+#include <vector>
 
 #include "turtle.h"
 
+struct Production {
+  std::string pred;
+  std::string succ;
+};
+
 class Rules : public Turtle {
   public:
-    Rules(std::string axiom, const std::map<char, std::string>& productions);
-    void iterate(const unsigned& iter);
-    void interpret(const float& distance, const float& angle);
+    Rules(std::string file);
+    void generate();
+    void iterate();
+    void interpret();
 
   private:
+    std::vector<Production> prod_;
     std::string instructions_;
-    const std::map<char, std::string>& productions_;
+    float distance_;
+    float angle_;
+    std::string file_;
+    unsigned iter_;
 };

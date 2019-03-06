@@ -11,7 +11,7 @@ Turtle::Turtle() {
   state_.vector[0] = {1, 0, 0};
   state_.vector[1] = {0, 1, 0};
   state_.vector[2] = {0, 0, 1};
-};
+}
 
 state Turtle::getState() {
   return state_;

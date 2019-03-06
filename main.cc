@@ -8,18 +8,11 @@
 #include <iostream>
 
 void load() {
-    const std::map<char, std::string>& prod = {{'X', "^ < X F ^ < X F X - F ^ > > X F X & F + > > X F X - F > X - >"}};
-    Rules r ("X", prod);
-    r.iterate(3);
-    r.interpret(0.2, 90);
-   /* const std::map<char, std::string>& prod = {{'A', "[&FFFA] //// [&FFFA] //// [&FFFA]"}};
-    Rules r ("FFFA", prod);
-    r.iterate(3);
-    r.interpret(0.2, 30);
-*/
+    Rules r("input.txt");
+    r.generate();
 }
 
-int main(int argc, char *argv[])
+int main()
 {
   SDL_Init(SDL_INIT_VIDEO);
   SDL_WM_SetCaption("Mon premier programme OpenGL !",NULL);

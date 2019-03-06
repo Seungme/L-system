@@ -1,0 +1,5 @@
+Angle: 90
+Distance: 0.3
+Iteration: 3
+Axiom: X
+X -> ^<XF^<XFX-F^>>XFX&F+>>XFX-F>X->
