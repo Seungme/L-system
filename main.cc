@@ -7,13 +7,18 @@
 #include "turtle.h"
 #include <iostream>
 
-void load() {
-    Rules r("input.txt");
+void load(std::string filename) {
+    Rules r(filename);
     r.generate();
 }
 
-int main()
+int main(int argc, char **argv)
 {
+  if (argc < 2) {
+    std::cout << "Please enter a filename" << std::endl;
+    return 1;
+  }
+
   SDL_Init(SDL_INIT_VIDEO);
   SDL_WM_SetCaption("Mon premier programme OpenGL !",NULL);
   SDL_SetVideoMode(600, 600, 32, SDL_OPENGL);
@@ -39,7 +44,7 @@ int main()
     glLoadIdentity();
     gluLookAt(3,4,2,0,0,0,0,0,1);
 
-    load();
+    load(argv[1]);
 
     glFlush();
     SDL_GL_SwapBuffers();
