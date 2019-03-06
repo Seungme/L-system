@@ -63,7 +63,6 @@ void Turtle::move(float distance) {
   }
   state_.p = p;
 }
-me/parallels/Documents/L-system/turtle.obj' 
 
 //rotate around the z axis
 void Turtle::turn(float angle) {
