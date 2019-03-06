@@ -17,6 +17,7 @@ class Turtle
 {
   public:
     Turtle();
+    ~Turtle();
 
     state getState();
     void setCoord(float x, float y, float z);
@@ -33,6 +34,8 @@ class Turtle
     void roll(float angle);
     void save();
     void restore();
+
+    void write_obj();
 
   private:
     state state_;

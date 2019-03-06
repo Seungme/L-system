@@ -1,10 +1,12 @@
 #include <cmath>
+#include <fstream>
 #include "turtle.h"
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <iostream>
 #include <stdlib.h>
+#include <string>
 
 //initialize the turtle with basis for vector space
 Turtle::Turtle() {
@@ -61,10 +63,12 @@ void Turtle::move(float distance) {
     glColor3ub(rand() % 256, rand() % 256, rand() % 256);
     glVertex3f(state_.p.x, state_.p.y, state_.p.z);
     glVertex3f(p.x, p.y, p.z);
+    this->save();
     glEnd();
   }
   state_.p = p;
 }
+me/parallels/Documents/L-system/turtle.obj' 
 
 void Turtle::turn(float angle) {
   float radian = angle * M_PI / 180;
@@ -112,4 +116,34 @@ void Turtle::restore() {
   state s = s_.top();
   state_ = s;
   s_.pop();
+}
+
+void Turtle::write_obj() {
+  remove("turtle.obj");
+  std::ofstream file("turtle.obj");
+  
+  std::string data;
+  int stack_len = 0;
+
+  while(!s_.empty())
+  {
+    state curr_s = s_.top();
+    s_.pop();
+    point curr_pt = curr_s.p;
+    data += "v " + std::to_string(curr_pt.x) + ' ' + std::to_string(curr_pt.y) + ' ' + std::to_string(curr_pt.z) + '\n';
+    stack_len += 1;
+  }
+
+  data += '\n';
+
+  for (int i = 0; i < stack_len-1; i++) {
+    data += "l " + std::to_string(i+1) + ' ' + std::to_string(i+2) + '\n';
+  }
+
+  file << data;
+  file.close();
+}
+
+Turtle::~Turtle() {
+  write_obj();
 }
