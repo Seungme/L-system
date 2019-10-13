@@ -1,12 +1,13 @@
-#include <cmath>
-#include <fstream>
-#include "turtle.h"
 #include <SDL/SDL.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <iostream>
 #include <stdlib.h>
 #include <string>
+#include <cmath>
+#include <fstream>
+
+#include "turtle.hh"
 
 //initialize the turtle with basis for vector space
 Turtle::Turtle() {

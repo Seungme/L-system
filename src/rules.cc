@@ -2,7 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include "rules.h"
+
+#include "rules.hh"
 
 Rules::Rules(std::string file): file_(file) {}
 

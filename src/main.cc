@@ -2,10 +2,10 @@
 #include <GL/glu.h>
 #include <SDL/SDL.h>
 #include <map>
-
-#include "rules.h"
-#include "turtle.h"
 #include <iostream>
+
+#include "rules.hh"
+#include "turtle.hh"
 
 void load(std::string filename) {
     Rules r(filename);
@@ -20,7 +20,7 @@ int main(int argc, char **argv)
   }
 
   SDL_Init(SDL_INIT_VIDEO);
-  SDL_WM_SetCaption("Mon premier programme OpenGL !",NULL);
+  SDL_WM_SetCaption("L-system",NULL);
   SDL_SetVideoMode(600, 600, 32, SDL_OPENGL);
 
   bool continuer = true;
