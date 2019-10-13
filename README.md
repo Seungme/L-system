@@ -19,5 +19,6 @@ $ ./lsystem <configuration_file>
 This is an example of 3D Hilbert Curve using the L-system, with
 ```
 $ ./lsystem resources/hilbert.txt
+```
 
 ![first](resources/screenshot.png)
